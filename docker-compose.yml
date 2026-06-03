@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend:
+    volumes:
+      - ./backend/models:/root/.insightface/models
+    build: ./backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
